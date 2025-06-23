@@ -1,25 +1,24 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
-// Import Playfair Display along with Inter
-import { Inter, Playfair_Display } from "next/font/google"; // Corrected import
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-// Initialize the fonts
 const inter = Inter({ 
   subsets: ["latin"],
-  variable: '--font-inter', // CSS variable for Inter
+  variable: '--font-inter',
 });
-const playfairDisplay = Playfair_Display({ // Corrected variable name
+
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
-  weight: ['400', '700', '800'], // Specify weights used
-  variable: '--font-playfair-display', // CSS variable for Playfair Display
+  weight: ['400', '700', '800'],
+  variable: '--font-playfair-display',
 });
 
 export const metadata: Metadata = {
-  title: "The God Hypothesis: An Analytical Investigation", // Updated title
-  description: "An analytical, evidence-based investigation of the God hypothesis.", // Updated description
+  title: "The God Hypothesis: An Analytical Investigation",
+  description: "An analytical, evidence-based investigation of the God hypothesis.",
 };
 
 export default function RootLayout({
@@ -28,14 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth"> {/* Added scroll-smooth */}
-      {/* Apply font variables to the body */}
-      <body className={`${inter.variable} ${playfairDisplay.variable} font-sans bg-[#0a0f1f] text-gray-200 flex flex-col min-h-screen antialiased`}>
+    <html lang="en" className={`${inter.variable} ${playfairDisplay.variable} scroll-smooth`}>
+      {/*
+        The <head> tag is implicitly managed by Next.js through the `metadata` export and 
+        any <Head> components used in child pages (though less common with App Router metadata).
+        Do NOT add an explicit <head> tag here unless you have a very specific reason
+        and understand how it interacts with Next.js's head management.
+      */}
+      <body className={`font-sans bg-brand-navy text-gray-100 flex flex-col min-h-screen antialiased`}>
         <Header />
-        <main className="flex-grow"> {/* Removed container mx-auto here, will add per-page */}
+        <main className="flex-grow"> {/* Removed container mx-auto from here, apply it on page.tsx if needed */}
           {children}
         </main>
-        <Footer /> {/* We'll make a new footer component based on your HTML */}
+        <Footer />
       </body>
     </html>
   );
